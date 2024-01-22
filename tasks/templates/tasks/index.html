@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+    <!-- Uključivanje Bootstrap CSS-a (ako ga koristite) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h3>To do</h3>
+
+        <form method="POST" action="/">
+            {% csrf_token %}
+            <div class="form-group d-flex">
+                {{ form.title }}
+                <button type="submit" name="Create task" class="btn btn-primary ml-auto">Create Task</button>
+            </div>
+        </form>
+
+        {% for task in tasks %}
+             <div class="d-flex align-items-center">
+            {% if task.completed == True %}
+            <p style="text-decoration-line: line-through;">{{ task }}</p>
+            {% else %}
+            <p>{{ task }}</p>
+            {% endif %}
+            <a href="{% url 'update' task.id %}" class="btn btn-primary ml-auto">Update</a>
+            <a href="{% url 'delete' task.id %}" class="btn btn-danger">Delete</a>
+            </div>
+        {% endfor %}
+
+    </div>
+
+    <!-- Uključivanje Bootstrap JavaScript-a (opciono) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
